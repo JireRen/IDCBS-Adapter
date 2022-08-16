@@ -3,9 +3,11 @@ project(disjoint_CBSH)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_subdirectory(library/yaml-cpp)
 
 include_directories(.
         $ENV{GUROBI_HOME}/include
+        library/yaml-cpp
         )
 
 link_libraries(boost_program_options
@@ -15,6 +17,7 @@ link_libraries(boost_program_options
         stdc++fs
         $ENV{GUROBI_HOME}/lib/libgurobi_c++.a
         $ENV{GUROBI_HOME}/lib/libgurobi95.so
+        yaml-cpp
         )
 
 add_executable(idcbs

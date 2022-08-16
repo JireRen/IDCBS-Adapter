@@ -15,6 +15,7 @@ public:
 	vector< pair<int, int> > goal_locations;
 
 	AgentsLoader(const std::string fname, const MapLoader &ml, int agentsNum, int width);
+    AgentsLoader(std::vector<std::pair<int, int> > starts, std::vector<std::pair<int, int> > goals); // mapf-adapter: load agents
 	AgentsLoader(){}
 	void printAgentsInitGoal ();
 	void saveToFile(const std::string fname);

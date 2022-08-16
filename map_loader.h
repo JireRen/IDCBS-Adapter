@@ -16,6 +16,7 @@ class MapLoader {
   MapLoader(){}
   MapLoader(std::string fname); // load map from file
   MapLoader(int rows, int cols); // initialize new [rows x cols] empty map
+  MapLoader(int rows, int cols, std::vector<std::pair<int, int>> obstacles); // mapf-adapter: initialize new [rows x cols] with obstacles
   inline bool is_blocked (int row, int col) const { return my_map[row * this->cols + col]; }
   inline bool is_blocked (int loc) const { return my_map[loc]; }
   inline size_t map_size() const { return rows * cols; }

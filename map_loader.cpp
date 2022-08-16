@@ -38,6 +38,47 @@ MapLoader::MapLoader(int rows, int cols) {
     this->my_map[linearize_coordinate(i,j)] = true;
 
 }
+// mapf-adapters helper function
+MapLoader::MapLoader(int rows, int cols, std::vector<std::pair<int, int> > obstacles) {
+    int i, j;
+    int x, y;
+    this->rows = rows + 2; // adding bounding box around the original map
+    this->cols = cols + 2;
+    GRID_COLS = this->cols;
+    this->my_map = new bool[this->rows*this->cols];
+    for (i=0; i<this->rows*this->cols; i++)
+        this->my_map[i] = false;
+
+    // adding the obstacles
+    for(i=0; i<obstacles.size(); i++){
+        x = obstacles[i].first + 1;
+        y = obstacles[i].second + 1;
+        this->my_map[x*this->cols + y] = true;
+    }
+
+    // Possible moves [WAIT, NORTH, EAST, SOUTH, WEST]
+    moves_offset = new int[MapLoader::MOVE_COUNT];
+    moves_offset[MapLoader::valid_moves_t::WAIT_MOVE] = 0;
+    moves_offset[MapLoader::valid_moves_t::NORTH] = -cols;
+    moves_offset[MapLoader::valid_moves_t::EAST] = 1;
+    moves_offset[MapLoader::valid_moves_t::SOUTH] = cols;
+    moves_offset[MapLoader::valid_moves_t::WEST] = -1;
+
+    // Set the edges of the map to be an impassable border
+    i = 0;
+    for (j=0; j<this->cols; j++)
+        this->my_map[linearize_coordinate(i,j)] = true;
+    i=this->rows-1;
+    for (j=0; j<this->cols; j++)
+        this->my_map[linearize_coordinate(i,j)] = true;
+    j=0;
+    for (i=0; i<this->rows; i++)
+        this->my_map[linearize_coordinate(i,j)] = true;
+    j=this->cols-1;
+    for (i=0; i<this->rows; i++)
+        this->my_map[linearize_coordinate(i,j)] = true;
+
+}
 
 MapLoader::MapLoader(string fname) : name(fname) {
   string line;

@@ -201,6 +201,16 @@ AgentsLoader::AgentsLoader(string fname, const MapLoader &ml, int agentsNum = 0,
 	}
 
 }
+// mapf-adapter: AgentLoader helper
+AgentsLoader::AgentsLoader(std::vector<std::pair<int, int>> starts, std::vector<std::pair<int, int>> goals) {
+    this->num_of_agents = starts.size();
+
+    for(int i=0; i<this->num_of_agents; i++){
+        this->initial_locations.emplace_back(std::make_pair(starts[i].first+1, starts[i].second+1));
+        this->goal_locations.emplace_back(std::make_pair(goals[i].first+1, goals[i].second+1));
+
+    }
+}
 
 void AgentsLoader::printAgentsInitGoal () 
 {
