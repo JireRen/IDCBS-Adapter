@@ -42,8 +42,8 @@ MapLoader::MapLoader(int rows, int cols) {
 MapLoader::MapLoader(int rows, int cols, std::vector<std::pair<int, int> > obstacles) {
     int i, j;
     int x, y;
-    this->rows = rows + 2; // adding bounding box around the original map
-    this->cols = cols + 2;
+    this->rows = rows; // adding bounding box around the original map
+    this->cols = cols;
     GRID_COLS = this->cols;
     this->my_map = new bool[this->rows*this->cols];
     for (i=0; i<this->rows*this->cols; i++)
@@ -51,8 +51,8 @@ MapLoader::MapLoader(int rows, int cols, std::vector<std::pair<int, int> > obsta
 
     // adding the obstacles
     for(i=0; i<obstacles.size(); i++){
-        x = obstacles[i].first + 1;
-        y = obstacles[i].second + 1;
+        x = obstacles[i].first;
+        y = obstacles[i].second;
         this->my_map[x*this->cols + y] = true;
     }
 
@@ -65,19 +65,23 @@ MapLoader::MapLoader(int rows, int cols, std::vector<std::pair<int, int> > obsta
     moves_offset[MapLoader::valid_moves_t::WEST] = -1;
 
     // Set the edges of the map to be an impassable border
-    i = 0;
-    for (j=0; j<this->cols; j++)
-        this->my_map[linearize_coordinate(i,j)] = true;
-    i=this->rows-1;
-    for (j=0; j<this->cols; j++)
-        this->my_map[linearize_coordinate(i,j)] = true;
-    j=0;
-    for (i=0; i<this->rows; i++)
-        this->my_map[linearize_coordinate(i,j)] = true;
-    j=this->cols-1;
-    for (i=0; i<this->rows; i++)
-        this->my_map[linearize_coordinate(i,j)] = true;
+    // i = 0;
+    // for (j=0; j<this->cols; j++)
+    //     this->my_map[linearize_coordinate(i,j)] = true;
+    // i=this->rows-1;
+    // for (j=0; j<this->cols; j++)
+    //     this->my_map[linearize_coordinate(i,j)] = true;
+    // j=0;
+    // for (i=0; i<this->rows; i++)
+    //     this->my_map[linearize_coordinate(i,j)] = true;
+    // j=this->cols-1;
+    // for (i=0; i<this->rows; i++)
+    //     this->my_map[linearize_coordinate(i,j)] = true;
 
+    std::cout << "Done loading map: [" << this->rows << ", " << this->cols << "]" << std::endl;
+    std::cout << "There are : " << obstacles.size() << " obstacles" << std::endl;
+    for (auto & obs : obstacles)
+        std::cout << "[" << obs.first << ", " << obs.second << "]" << std::endl;
 }
 
 MapLoader::MapLoader(string fname) : name(fname) {

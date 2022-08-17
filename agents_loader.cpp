@@ -206,9 +206,14 @@ AgentsLoader::AgentsLoader(std::vector<std::pair<int, int>> starts, std::vector<
     this->num_of_agents = starts.size();
 
     for(int i=0; i<this->num_of_agents; i++){
-        this->initial_locations.emplace_back(std::make_pair(starts[i].first+1, starts[i].second+1));
-        this->goal_locations.emplace_back(std::make_pair(goals[i].first+1, goals[i].second+1));
+        this->initial_locations.emplace_back(std::make_pair(starts[i].first, starts[i].second));
+        this->goal_locations.emplace_back(std::make_pair(goals[i].first, goals[i].second));
+    }
 
+    std::cout << "Done loading " << this->num_of_agents << " agents" << std::endl;
+    for (int i=0; i<starts.size(); i++){
+        std::cout << "[" << this->initial_locations[i].first <<", " << this->initial_locations[i].second << "], "
+        << "[" << this->goal_locations[i].first << ", " << this->goal_locations[i].second << "]" << std::endl;
     }
 }
 

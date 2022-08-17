@@ -21,6 +21,8 @@ link_libraries(boost_program_options
         )
 
 add_executable(idcbs
+        example/idcbs_adapter.cpp
+#        driver.cpp
         agents_loader.cpp
         agents_loader.h
         common.cpp
@@ -29,7 +31,6 @@ add_executable(idcbs
         heuristic_calculator.h
         dynamic_constraints_manager.cpp
         dynamic_constraints_manager.h
-        driver.cpp
         g_logging.h
         ICBSNode.cpp
         ICBSNode.h
